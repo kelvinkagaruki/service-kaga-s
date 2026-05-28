@@ -1,0 +1,758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaga's Market</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Kaga's Market - Enhanced with features */
+    .categories-section {
+      margin: 30px 0;
+    }
+
+    .categories-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .category-item {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      transition: all 0.3s;
+      border: 2px solid transparent;
+    }
+
+    .category-item:hover {
+      transform: translateY(-3px);
+      border-color: #0066cc;
+      box-shadow: 0 4px 12px rgba(0,102,204,0.2);
+    }
+
+    .category-icon {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+
+    .category-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    .sellers-section {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+    }
+
+    .seller-card {
+      border: 1px solid #e0e0e0;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .seller-info {
+      flex: 1;
+    }
+
+    .seller-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: #0066cc;
+      margin-bottom: 5px;
+    }
+
+    .seller-rating {
+      color: #ff9900;
+      font-size: 14px;
+      margin: 5px 0;
+    }
+
+    .seller-badge {
+      display: inline-block;
+      background: #e8f5e9;
+      color: #2e7d32;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-top: 5px;
+    }
+
+    .visit-btn {
+      background: #0066cc;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .visit-btn:hover {
+      background: #0052a3;
+      transform: scale(1.05);
+    }
+
+    .deals-banner {
+      background: linear-gradient(135deg, #0066cc 0%, #004a99 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 8px;
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .deals-banner h3 {
+      font-size: 20px;
+      margin: 10px 0;
+    }
+
+    .filter-section {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 15px 0;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      padding: 8px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .filter-btn:hover, .filter-btn.active {
+      background: #0066cc;
+      color: white;
+      border-color: #0066cc;
+    }
+
+    .review-section {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+      border-left: 4px solid #0066cc;
+    }
+
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .reviewer-name {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .review-rating {
+      color: #ff9900;
+      font-size: 14px;
+    }
+
+    .review-text {
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .order-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 12px 0;
+    }
+
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .order-id {
+      font-weight: 600;
+      color: #0066cc;
+    }
+
+    .order-status {
+      padding: 4px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .status-shipped {
+      background: #cfe2ff;
+      color: #084298;
+    }
+
+    .status-delivered {
+      background: #d1e7dd;
+      color: #0f5132;
+    }
+
+    .order-details {
+      font-size: 13px;
+      color: #666;
+      margin: 8px 0;
+    }
+
+    .admin-section {
+      background: #fff3cd;
+      border-left: 4px solid #ff9900;
+      padding: 15px;
+      border-radius: 6px;
+      margin: 20px 0;
+    }
+
+    .admin-btn {
+      background: #ff9900;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 10px;
+    }
+
+    .admin-btn:hover {
+      background: #e08a00;
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .trust-item {
+      text-align: center;
+      padding: 15px;
+    }
+
+    .trust-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .trust-title {
+      font-weight: 600;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .trust-desc {
+      font-size: 12px;
+      color: #666;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="brand">
+      <h1 data-i18n="brand-title">Kaga's Market</h1>
+      <p data-i18n="brand-subtitle">Marketplace + Delivery Platform</p>
+    </div>
+    <nav class="nav-links">
+      <button id="show-home-btn" class="nav-button active">🏠 <span data-i18n="nav-home">Home</span></button>
+      <button id="show-shop-btn" class="nav-button">🛍️ <span data-i18n="nav-shop">Shop</span></button>
+      <a href="login.html" class="nav-button">👤 <span data-i18n="nav-account">Account</span></a>
+      <button id="show-messenger-btn" class="nav-button">💬 <span data-i18n="nav-messenger">Messenger</span></button>
+    </nav>
+    <div class="header-search-wrapper">
+      <div class="header-search">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"></circle>
+          <path d="m21 21-4.35-4.35"></path>
+        </svg>
+        <input id="global-search-input" type="search" placeholder="Search products, shops, orders..." data-placeholder-i18n="search-placeholder" />
+        <button id="search-clear-btn" class="search-clear-btn hidden" aria-label="Clear search">
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+          </svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results hidden">
+        <div id="search-results-content"></div>
+      </div>
+    </div>
+    <div class="header-menu">
+      <button id="show-cart-btn" class="nav-button mini-icon">🛒 <span id="cart-count">0</span></button>
+      <select id="language-switcher" class="language-switcher">
+        <option value="en" data-i18n="lang-english">English</option>
+        <option value="sw" data-i18n="lang-kiswahili">Kiswahili</option>
+      </select>
+      <a href="login.html" class="account-btn" data-i18n="header-account">👤 Account</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <h2 data-i18n="hero-title">Your Local Marketplace & Delivery Platform</h2>
+        <p data-i18n="hero-subtitle">Shop from trusted local businesses and get fast delivery right to your door</p>
+      </div>
+    </section>
+
+    <!-- HOME PANEL -->
+    <section class="panel" id="home-panel">
+      
+      <!-- ADMIN SECTION -->
+      <div class="admin-section" id="admin-section" style="display:none;">
+        <h3>👨‍💼 Admin Dashboard</h3>
+        <p>Manage users, sellers, products, and reports</p>
+        <button class="admin-btn" onclick="switchView('admin')">Open Admin Panel</button>
+      </div>
+
+      <div class="panel-header">
+        <div>
+          <h2 data-i18n="home-title">Welcome to Kaga's Market</h2>
+          <p data-i18n="home-subtitle">Fast access to local shops, products, orders, and messages.</p>
+        </div>
+        <div class="home-actions">
+          <button class="primary-button" onclick="switchView('shop')" data-i18n="home-shop-cta">Browse the Shop</button>
+          <button class="secondary-button" onclick="switchView('messenger')" data-i18n="home-messenger-cta">Open Messenger</button>
+        </div>
+      </div>
+
+      <!-- TRUST INDICATORS -->
+      <div class="trust-grid">
+        <div class="trust-item">
+          <div class="trust-icon">✅</div>
+          <div class="trust-title">100% Safe</div>
+          <div class="trust-desc">Secure transactions</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">⚡</div>
+          <div class="trust-title">Fast Delivery</div>
+          <div class="trust-desc">24-72 hours delivery</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">⭐</div>
+          <div class="trust-title">Trusted Sellers</div>
+          <div class="trust-desc">Verified & rated shops</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon">🔄</div>
+          <div class="trust-title">Easy Returns</div>
+          <div class="trust-desc">30-day return policy</div>
+        </div>
+      </div>
+
+      <!-- PRODUCT CATEGORIES -->
+      <div class="categories-section">
+        <div class="panel-header">
+          <h3>Shop by Category</h3>
+        </div>
+        <div class="categories-grid">
+          <div class="category-item" onclick="filterByCategory('electronics')">
+            <div class="category-icon">📱</div>
+            <div class="category-name">Electronics</div>
+          </div>
+          <div class="category-item" onclick="filterByCategory('fashion')">
+            <div class="category-icon">👔</div>
+            <div class="category-name">Fashion</div>
+          </div>
+          <div class="category-item" onclick="filterByCategory('home')">
+            <div class="category-icon">🏠</div>
+            <div class="category-name">Home</div>
+          </div>
+          <div class="category-item" onclick="filterByCategory('beauty')">
+            <div class="category-icon">💄</div>
+            <div class="category-name">Beauty</div>
+          </div>
+          <div class="category-item" onclick="filterByCategory('sports')">
+            <div class="category-icon">⚽</div>
+            <div class="category-name">Sports</div>
+          </div>
+          <div class="category-item" onclick="filterByCategory('food')">
+            <div class="category-icon">🍕</div>
+            <div class="category-name">Food</div>
+          </div>
+          <div class="category-item" onclick="filterByCategory('books')">
+            <div class="category-icon">📚</div>
+            <div class="category-name">Books</div>
+          </div>
+          <div class="category-item" onclick="filterByCategory('other')">
+            <div class="category-icon">🎁</div>
+            <div class="category-name">More</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FEATURED PRODUCTS -->
+      <div class="panel-header">
+        <h3 data-i18n="home-featured">Top products</h3>
+      </div>
+      <div id="home-featured-list" class="card-grid"></div>
+
+      <!-- TRUSTED SELLERS/SHOPS -->
+      <div class="sellers-section">
+        <div class="panel-header">
+          <h3>Trusted Shops</h3>
+        </div>
+        <div id="trusted-sellers-list"></div>
+        <button class="primary-button" style="width: 100%; margin-top: 15px;" onclick="switchView('shop')">View All Sellers</button>
+      </div>
+
+    </section>
+
+    <!-- SHOP PANEL -->
+    <section class="panel hidden" id="shop-panel">
+      <div class="panel-header">
+        <div>
+          <h2 data-i18n="shop-title">Shop</h2>
+          <p data-i18n="shop-subtitle">One page for products, businesses, and local shops.</p>
+        </div>
+      </div>
+
+      <div class="shop-grid">
+        <!-- PRODUCTS PANEL -->
+        <section class="panel shop-subpanel" id="products-panel">
+          <div class="panel-header">
+            <div>
+              <h2 data-i18n="browse-products">Browse Products</h2>
+              <p data-i18n="explore-categories">Explore categories and find exactly what you need</p>
+            </div>
+            <label>
+              <span data-i18n="label-search">Search</span>
+              <input id="search-input" type="search" placeholder="Search by name or vendor..." data-placeholder-i18n="search-placeholder" />
+            </label>
+          </div>
+          <div id="category-filter" class="category-filter"></div>
+          <div id="product-list" class="card-grid"></div>
+        </section>
+
+        <!-- BUSINESS PANEL -->
+        <section class="panel shop-subpanel" id="business-panel">
+          <div class="panel-header">
+            <div>
+              <h2 data-i18n="business-title">Trusted Shops</h2>
+              <p data-i18n="business-subtitle">Browse direct business postings and vendor products</p>
+            </div>
+            <label>
+              <span data-i18n="label-search">Search</span>
+              <input id="business-search-input" type="search" placeholder="Search by business or product..." data-placeholder-i18n="search-placeholder" />
+            </label>
+          </div>
+          <div id="business-list" class="card-grid"></div>
+        </section>
+
+        <!-- UPLOAD PANEL -->
+        <section class="panel shop-subpanel" id="upload-panel">
+          <div class="panel-header">
+            <div>
+              <h2 data-i18n="upload-image-title">Upload Product</h2>
+              <p data-i18n="upload-image-desc">Businesses can add products to reach more customers</p>
+            </div>
+          </div>
+          <form id="product-image-upload-form" class="settings-form">
+            <label>
+              <span>Product Name</span>
+              <input id="product-name" type="text" placeholder="Product name" />
+            </label>
+            <label>
+              <span>Category</span>
+              <select id="product-select">
+                <option>Electronics</option>
+                <option>Fashion</option>
+                <option>Home</option>
+              </select>
+            </label>
+            <label>
+              <span>Price</span>
+              <input id="product-price" type="number" placeholder="Price" />
+            </label>
+            <label>
+              <span data-i18n="upload-select-file">Select image</span>
+              <input id="product-image-input" type="file" accept="image/*" />
+            </label>
+            <div class="upload-preview hidden" id="upload-preview">
+              <h3 data-i18n="upload-preview-title">Preview</h3>
+              <img id="upload-preview-image" src="" alt="Product preview" />
+            </div>
+            <div class="form-actions">
+              <button type="submit" class="primary-button" data-i18n="upload-submit">Upload Product</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- SERVICES PANEL -->
+        <section class="panel shop-subpanel" id="services-panel">
+          <div class="panel-header">
+            <div>
+              <h2 data-i18n="services-title">Services</h2>
+              <p data-i18n="services-subtitle">Get professional help delivered to your location</p>
+            </div>
+          </div>
+          <div id="service-list" class="card-grid"></div>
+        </section>
+      </div>
+    </section>
+
+    <!-- CART PANEL -->
+    <section class="panel hidden" id="cart-panel">
+      <div class="panel-header">
+        <h2 data-i18n="cart-title">Shopping Cart</h2>
+        <p data-i18n="cart-subtitle">Review your items and proceed to delivery checkout</p>
+      </div>
+      
+      <!-- Check if user logged in -->
+      <div id="cart-not-logged-in" class="alert" style="display:none;">
+        <p>Please <a href="login.html">login</a> to checkout.</p>
+      </div>
+
+      <!-- Show cart only if logged in -->
+      <div id="cart-logged-in" style="display:none;">
+        <div id="cart-list" class="cart-list"></div>
+        <div class="cart-summary">
+          <span data-i18n="cart-total-label">Order Total</span>
+          <strong id="cart-total">$0.00</strong>
+        </div>
+        <button id="checkout-btn" class="primary-button" data-i18n="btn-checkout">Proceed to Checkout</button>
+      </div>
+
+      <!-- Empty cart message -->
+      <div id="cart-empty" style="display:none;">
+        <p>Your cart is empty. <a href="#" onclick="switchView('shop')">Start shopping</a></p>
+      </div>
+    </section>
+
+    <!-- DELIVERY PANEL -->
+    <section class="panel hidden" id="delivery-panel">
+      <div class="panel-header">
+        <h2 data-i18n="delivery-title">Delivery & Checkout</h2>
+        <p data-i18n="delivery-subtitle">Enter address and delivery details to complete your order.</p>
+      </div>
+      <form id="delivery-form" class="delivery-form">
+        <div class="form-grid">
+          <label>
+            <span data-i18n="form-name">Full name</span>
+            <input id="delivery-name" type="text" placeholder="Your name" data-placeholder-i18n="delivery-name-placeholder" required />
+          </label>
+          <label>
+            <span data-i18n="form-phone">Phone</span>
+            <input id="delivery-phone" type="tel" placeholder="Phone number" data-placeholder-i18n="delivery-phone-placeholder" required />
+          </label>
+          <label>
+            <span data-i18n="form-address">Address</span>
+            <input id="delivery-address" type="text" placeholder="Street address" data-placeholder-i18n="delivery-address-placeholder" required />
+          </label>
+          <label>
+            <span data-i18n="form-city">City</span>
+            <input id="delivery-city" type="text" placeholder="City" data-placeholder-i18n="delivery-city-placeholder" required />
+          </label>
+          <label>
+            <span data-i18n="delivery-option-label">Delivery option</span>
+            <select id="delivery-method">
+              <option value="standard" data-i18n="delivery-standard">Standard delivery</option>
+              <option value="express" data-i18n="delivery-express">Express delivery</option>
+            </select>
+          </label>
+          <label class="full-width">
+            <span data-i18n="delivery-notes-label">Delivery notes</span>
+            <textarea id="delivery-notes" rows="3" placeholder="Special instructions" data-placeholder-i18n="delivery-notes-placeholder"></textarea>
+          </label>
+        </div>
+        <div class="cart-summary delivery-summary">
+          <span data-i18n="delivery-total-label">Order total</span>
+          <strong id="delivery-total">$0.00</strong>
+        </div>
+        <div class="actions form-actions">
+          <button type="button" id="delivery-back-btn" class="secondary-button" data-i18n="btn-back">Back to Cart</button>
+          <button type="submit" id="place-order-btn" class="primary-button" data-i18n="btn-place-order">Place Order</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ACCOUNT PANEL -->
+    <section class="panel hidden" id="account-panel">
+      <div class="panel-header">
+        <div>
+          <h2 data-i18n="account-title">Account</h2>
+          <p data-i18n="account-subtitle">View and update your personal details.</p>
+        </div>
+      </div>
+      <div class="account-grid">
+        <section class="panel" id="profile-panel">
+          <div class="panel-header">
+            <h2 data-i18n="profile-title">My Profile</h2>
+            <p data-i18n="profile-subtitle">Manage your account information</p>
+          </div>
+          
+          <!-- Check if user logged in -->
+          <div id="profile-not-logged-in" class="alert" style="display:none;">
+            <p>Please <a href="login.html">login</a> to view your profile.</p>
+          </div>
+
+          <!-- Show profile only if logged in -->
+          <div id="profile-logged-in" style="display:none;">
+            <form id="profile-form" class="delivery-form">
+              <div class="form-grid">
+                <label>
+                  <span data-i18n="form-username">Username</span>
+                  <input id="profile-username" type="text" placeholder="Your username" data-placeholder-i18n="profile-username-placeholder" required />
+                </label>
+                <label>
+                  <span data-i18n="form-phone">Phone</span>
+                  <input id="profile-phone" type="tel" placeholder="Phone number" data-placeholder-i18n="profile-phone-placeholder" required />
+                </label>
+                <label>
+                  <span data-i18n="form-location">Location</span>
+                  <input id="profile-location" type="text" placeholder="City/Area" data-placeholder-i18n="profile-location-placeholder" required />
+                </label>
+                <label class="full-width">
+                  <span data-i18n="form-email">Email</span>
+                  <input id="profile-email" type="email" placeholder="Email address" data-placeholder-i18n="profile-email-placeholder" required />
+                </label>
+              </div>
+              <div class="form-actions">
+                <button type="button" id="profile-back-btn" class="secondary-button" data-i18n="btn-back">Back</button>
+                <button type="submit" class="primary-button" data-i18n="btn-save">Save Changes</button>
+              </div>
+            </form>
+
+            <!-- ORDER HISTORY -->
+            <div style="margin-top: 30px;">
+              <h3>Order History</h3>
+              <div id="user-orders" style="margin-top: 15px;"></div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ADMIN PANEL -->
+    <section class="panel hidden" id="admin-panel">
+      <div class="panel-header">
+        <h2>👨‍💼 Admin Dashboard</h2>
+        <p>Manage the marketplace</p>
+      </div>
+      
+      <div id="admin-login" style="text-align: center;">
+        <p>Admin access required</p>
+        <button class="primary-button" onclick="adminLogin()">Admin Login</button>
+      </div>
+
+      <div id="admin-content" style="display:none;">
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin: 20px 0;">
+          <div class="panel" style="text-align: center; padding: 20px;">
+            <h3>Users</h3>
+            <p style="font-size: 24px; color: #0066cc; font-weight: bold;">--</p>
+          </div>
+          <div class="panel" style="text-align: center; padding: 20px;">
+            <h3>Sellers</h3>
+            <p style="font-size: 24px; color: #0066cc; font-weight: bold;">--</p>
+          </div>
+          <div class="panel" style="text-align: center; padding: 20px;">
+            <h3>Products</h3>
+            <p style="font-size: 24px; color: #0066cc; font-weight: bold;">--</p>
+          </div>
+          <div class="panel" style="text-align: center; padding: 20px;">
+            <h3>Orders</h3>
+            <p style="font-size: 24px; color: #0066cc; font-weight: bold;">--</p>
+          </div>
+        </div>
+        <button class="secondary-button" onclick="switchView('home')" style="width: 100%;">Back to Home</button>
+      </div>
+    </section>
+
+    <!-- MESSENGER PANEL -->
+    <section class="panel hidden" id="messenger-panel">
+      <div class="panel-header">
+        <div>
+          <h2 data-i18n="messenger-title">Messenger</h2>
+          <p data-i18n="messenger-subtitle">Order updates, notifications, and delivery alerts.</p>
+        </div>
+      </div>
+      <div class="messenger-grid">
+        <div class="panel messenger-card">
+          <h3 data-i18n="notifications-title">Notifications</h3>
+          <label class="messenger-search">
+            <input id="messenger-search-input" type="search" placeholder="Search notifications or orders..." data-placeholder-i18n="search-placeholder" />
+          </label>
+          <div id="notification-list" class="notification-list"></div>
+        </div>
+        <div class="panel messenger-card">
+          <h3 data-i18n="orders-title">Order History</h3>
+          <p data-i18n="orders-subtitle">Track your past orders and deliveries</p>
+          <div id="orders-list" class="orders-list"></div>
+        </div>
+      </div>
+      <button type="button" id="orders-back-btn" class="secondary-button" data-i18n="btn-back">Back</button>
+    </section>
+
+  </main>
+
+  <nav class="mobile-bottom-nav">
+    <button type="button" class="mobile-nav-btn" onclick="switchView('home')">🏠<span>Home</span></button>
+    <button type="button" class="mobile-nav-btn" onclick="switchView('shop')">🛍️<span>Shop</span></button>
+    <a href="login.html" class="mobile-nav-btn">👤<span>Account</span></a>
+    <button type="button" class="mobile-nav-btn" onclick="switchView('messenger')">💬<span>Chat</span></button>
+  </nav>
+
+  <footer class="site-footer">
+    <p data-i18n="footer-text">Built for businesses and customers to connect with delivery-ready products and services.</p>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Kaga's Market features
+    function filterByCategory(category) {
+      switchView('shop');
+      console.log('Filter by category:', category);
+    }
+
+    function adminLogin() {
+      const password = prompt('Enter admin password:');
+      if (password === 'admin123') {
+        document.getElementById('admin-login').style.display = 'none';
+        document.getElementById('admin-content').style.display = 'block';
+      } else {
+        alert('Invalid password');
+      }
+    }
+
+    // Check if user is admin
+    window.addEventListener('DOMContentLoaded', function() {
+      const currentUser = localStorage.getItem('currentUser');
+      if (currentUser) {
+        const user = JSON.parse(currentUser);
+        if (user.type === 'admin') {
+          document.getElementById('admin-section').style.display = 'block';
+        }
+      }
+    });
+  </script>
+</body>
+</html>
